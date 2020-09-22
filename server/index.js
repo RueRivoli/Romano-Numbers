@@ -2,9 +2,11 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+
+const numbers = require('./routes/api/numbers');
+
+app.use('/api/numbers', numbers);
+
 
 app.listen(port, () => {
   console.log(`Romano numbers listening at http://localhost:${port}`)
