@@ -1,22 +1,27 @@
 <template>
-  <div class="hello">
-    <h1> Nombre décimal</h1>
+  <div>
+    <h1> Convertion en nombre romain</h1>
     <form
-      id="app"
       ref="number"
+      name="number"
       :model="number" 
-      :rules="rulesNumber"
+       @submit="checkInput"
       enctype="multipart/form-data"
-      >
+      onsubmit="return false;"
+      novalidate="true"
+    >
+      <p class="error">
+        {{ error }}
+      </p>
      <p>
-        <label for="number">Nombre</label>
+        <label for="decimal">Nombre entre 0 et 100</label>
         <input
-          id="number"
+          id="decimal"
           v-model="number.decimal"
           type="number"
-          name="number">
+          name="decimal">
       </p>
-     <button @click="convert">Convertir</button>
+     <button>Convertir</button>
     </form>
   </div>
 </template>
@@ -27,20 +32,37 @@ export default {
   data() {
     return {
       number: {
-        decimal: '',
+        decimal: 2,
       },
-      rulesNumber: {
-        decimal: [
-          { pattern: '^[0-100]+$', message: 'Le numéro rentré n\'est pas un nombre décimal compris entre 0 et 100', trigger: 'blur' }
-        ]
-      }
+      error: ''
     }
   },
   methods: {
     convert() {
+      this.$refs['number'].validate((valid) => {
+        console.log(valid);
+    });
+    },
+    checkInput (e) {
 
+      let nb = parseInt(this.number.decimal);
+      if (nb === '' || isNaN(nb)) {
+        console.log('isnotanumber');
+         this.error = "Veuillez entrer un nombre svp";
+      }
+      else if (typeof nb !== "number") {
+        console.log('is not a number');
+        this.error = "Veuillez entrer un nombre svp"
+      } else if (nb < 0 || nb > 100) {
+         console.log('is not between 0 and 100');
+        this.error = "Entrez un nombre entre 0 et 100 svp"
+      } else {
+        console.log('Is a Number between 0 and 100')
+        this.error = ''
+      }
+      e.preventDefault();
     }
-  }
+}
 }
 </script>
 
@@ -59,5 +81,10 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.error{
+  height:20px;
+  color:red;
 }
 </style>
