@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:3000/api/auth';
+const url = 'http://localhost:3000/api/numbers/';
 
 class NumberService {
 
@@ -10,7 +10,9 @@ class NumberService {
         return new Promise(function(resolve, reject) {
             try {
                 console.log(nb);
-                return axios.post(url, nb).then(function (response) {
+                let data = { number: nb }
+                return axios.post(url, data).then(function (response) {
+                    console.log('reponse')
                     console.log(response);
                     resolve(response.data);
                 }).catch(function (error) {

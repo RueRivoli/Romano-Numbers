@@ -27,6 +27,9 @@
 </template>
 
 <script>
+
+import NumberService from './../Service/NumberService'
+
 export default {
   name: 'Form',
   data() {
@@ -34,7 +37,9 @@ export default {
       number: {
         decimal: 2,
       },
-      error: ''
+      error: '',
+      isLoading: false,
+      isError: false,
     }
   },
   methods: {
@@ -44,7 +49,6 @@ export default {
     });
     },
     checkInput (e) {
-
       let nb = parseInt(this.number.decimal);
       if (nb === '' || isNaN(nb)) {
         console.log('isnotanumber');
@@ -59,8 +63,25 @@ export default {
       } else {
         console.log('Is a Number between 0 and 100')
         this.error = ''
+        this.convertNumber(nb);
       }
+
       e.preventDefault();
+
+    },
+    async convertNumber (nb) {
+      console.log('convert Function');
+      console.log(nb);
+      //  NumberService.getNumber().then(function (value) {
+      //   console.log('Retour value');
+      //   console.log(value);
+      // }).catch();
+
+      NumberService.convertNumber(nb).then(function (value) {
+        console.log('Retour value');
+        console.log(value);
+      }).catch();
+
     }
 }
 }
