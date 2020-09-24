@@ -14,14 +14,31 @@
         {{ error }}
       </p>
      <p>
-        <label for="decimal">Nombre entre 0 et 100</label>
+        <label for="decimal" style="width:100px;margin-right:2px;">Nombre entre 0 et 100</label>
         <input
           id="decimal"
           v-model="number.decimal"
           type="number"
-          name="decimal">
+          name="decimal"
+          style="margin-right:2px;"
+          >
+
       </p>
-     <button>Convertir</button>
+      <p>
+        <label for="decimal" style="width:100px;margin-right:2px;"> <img style="height: 20px;" src="./../assets/roman-helmet.svg"></label>
+         <input
+          v-model="romanoNumber"
+          type="string"
+          name="romanoNumber"
+          style="margin-right:2px;"
+          disabled
+          >
+<!--          
+          <span>{{romanoNumber}}</span> -->
+     </p>
+     <p>
+               <button class="pointer">Convertir</button>
+     </p>
     </form>
   </div>
 </template>
@@ -37,6 +54,7 @@ export default {
       number: {
         decimal: 2,
       },
+      romanoNumber: '',
       error: '',
       isLoading: false,
       isError: false,
@@ -76,10 +94,11 @@ export default {
       //   console.log('Retour value');
       //   console.log(value);
       // }).catch();
-
+      let context = this;
       NumberService.convertNumber(nb).then(function (value) {
         console.log('Retour value');
         console.log(value);
+        context.romanoNumber = value.romanoNumber;
       }).catch();
 
     }
@@ -107,5 +126,9 @@ a {
 .error{
   height:20px;
   color:red;
+}
+
+.pointer{
+  cursor: pointer;
 }
 </style>
