@@ -6,10 +6,8 @@ class NumberService {
 
     //Ask server to convert number
     static convertNumber(nb) {
-        console.log('convertNumber');
         return new Promise(function(resolve, reject) {
             try {
-                console.log(nb);
                 let data = { number: nb }
                 return axios.post(url, data).then(function (response) {
                     console.log('reponse')
