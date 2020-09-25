@@ -14,7 +14,7 @@ router.get('/sse', (req, res) => {
     setInterval(function() {
       if (localIteration < globalIteration) {
         res.status(200).write(`data: ${romanoNumber}\n\n`);
-        localVersion = globalVersion;
+        localIteration = globalIteration;
       }
     }, 1000)
 });
