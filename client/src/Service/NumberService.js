@@ -4,7 +4,7 @@ const url = 'http://localhost:3000/api/numbers/';
 
 class NumberService {
 
-    //Ask server to convert number
+    //Ajax call to convert number
     static convertNumber(nb) {
         console.log('convertNumber');
         return new Promise(function(resolve, reject) {
