@@ -2,18 +2,28 @@ const express = require('express');
 const router = express.Router();
 const convertNumber = require('./../../utils/convertion');
 
-router.get('/', (req, res) => {
-    res.send('Hello World!')
+var globalIteration = 0;
+var romanoNumber = '';
+
+router.get('/sse', (req, res) => {
+  var localIteration = 0;
+  res.set("Content-Type", "text/event-stream")
+  res.set("Connection", "keep-alive")
+  res.set("Cache-Control", "no-cache")
+  res.set('Access-Control-Allow-Origin', "*")
+    setInterval(function() {
+      if (localIteration < globalIteration) {
+        res.status(200).write(`data: ${romanoNumber}\n\n`);
+        localVersion = globalVersion;
+      }
+    }, 1000)
 });
 
+
 router.post('/',  function (req, res) {
-  console.log('NUMBER TO CONVERT ==>');
   let decNb = req.body.number;
-  // console.log(decNb);
-  let result = convertNumber(decNb);
-  return res.status(201).json({
-    romanoNumber: result
-  });
+  romanoNumber = convertNumber(decNb);
+  globalIteration++;
 });
 
 

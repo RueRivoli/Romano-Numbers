@@ -54,6 +54,19 @@ export default {
       isError: false,
     }
   },
+  created() {
+    var eventSource = new EventSource('http://localhost:3000/api/numbers/sse');
+    let context = this;
+    eventSource.addEventListener("message", function (e) {
+      try {
+        console.log(e.data);
+        context.romanoNumber = e.data;
+      }
+      catch (e) {
+        console.log(e)
+        }
+     });
+  },
   methods: {
     checkInput () {
       this.loading = true;
