@@ -6,14 +6,10 @@ class NumberService {
 
     //Ajax call to convert number
     static convertNumber(nb) {
-        console.log('convertNumber');
         return new Promise(function(resolve, reject) {
             try {
-                console.log(nb);
                 let data = { number: nb }
                 return axios.post(url, data).then(function (response) {
-                    console.log('reponse')
-                    console.log(response);
                     resolve(response.data);
                 }).catch(function (error) {
                     console.log('Error');

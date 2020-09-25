@@ -74,8 +74,6 @@ export default {
     async convertNumber (nb) {
       let context = this;
       NumberService.convertNumber(nb).then(function (value) {
-        console.log('Retour value');
-        console.log(value);
         context.romanoNumber = value.romanoNumber;
         context.loading = false;
       }).catch();
